@@ -1,0 +1,208 @@
+
+   {%extends "menu/layout.html"%}
+   {%block title%}
+   Menu
+    {%endblock%}
+
+    {%block content%}
+    
+    <div class="container ">
+      <div class="row">
+        <div class="tab-pane fade" id="pills-menu" role="tabpanel" aria-labelledby="pills-menu-tab"></div>
+        <div class="col-10">
+          <div class='container'>
+            
+          -------------------------------------------------------------------------------------------------------------
+          <div class="justify-content center">
+            <h6>Menu</h6>
+          </div>
+          -------------------------------------------------------------------------------------------------------------
+          <div class='row'>
+          <div class="col-7">
+            <h5>Toppings</h5>
+            {%for i in Tops%}
+            <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="add_to_cart()">
+                  <td><img src="{{i.image.url}}" id="img" class="rounded float-left sm mr-6" alt="{{i.image.url}}"></td>
+                  <td>{{i.top}}</td>
+                </tr>
+              </tbody>
+            </table>
+            {%endfor%}
+          </div>
+          <div class="col-3">
+            <h5>Regular Pizza</h5>
+            <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Small</th>
+                  <th scope="col">Large</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cheese</td>
+                  <td>12.70</td>
+                  <td>17.95</td>
+                </tr>
+                <tr>
+                  <td>1 topping</td>
+                  <td>13.70</td>
+                  <td>19.95</td>
+                </tr>
+                <tr>
+                  <td>2 topping</td>
+                  <td>15.20</td>
+                  <td>21.95</td>
+                </tr>
+                <tr>
+                  <td>3 topping</td>
+                  <td>16.20</td>
+                  <td>23.95</td>
+                </tr>
+                <tr>
+                  <td>Special</td>
+                  <td>17.75</td>
+                  <td>25.95</td>
+                </tr>
+              </tbody>
+            </table>
+            <h5>Silicon Pizza</h5>
+            <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Small</th>
+                  <th scope="col">Large</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cheese</td>
+                  <td>24.45</td>
+                  <td>38.70</td>
+                </tr>
+                <tr>
+                  <td>1 item</td>
+                  <td>26.45</td>
+                  <td>40.70</td>
+                </tr>
+                <tr>
+                  <td>2 items</td>
+                  <td>28.45</td>
+                  <td>42.70</td>
+                </tr>
+                <tr>
+                  <td>3 items</td>
+                  <td>29.45</td>
+                  <td>44.70</td>
+                </tr>
+                <tr>
+                  <td>Special</td>
+                  <td>30.45</td>
+                  <td>45.70</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+         </div>
+      </div>
+        </div>
+        <div class="col-2">
+         <form action="" method="POST" id="order">
+            {% csrf_token %}
+            <div class="card " style="width: 28rem;">
+              {% load static %}
+              <img src="{% static 'reg.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Select Your Order Here!</h5>
+                <p class="card-text">Select your  favourite choice from our menu from size,flavour,type of pizza and tyourfavourite pizza topping that you like. By default the flavour is cheese </p>
+                <div class="row">
+                <div class="col-6">
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="inputGroupSelect02">Type</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect02">
+                      <option selected>Reguar/Silican...</option>
+                      <option value='Regular'>Regular Pizza </option>
+                      <option value='Sicilian'>Sicilian Pizza </option>
+                    </select>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="inputGroupSelect02">Flavour</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect02">
+                      <option selected>Cheese...</option>
+                      <option value='cheese'>cheese </option>
+                      <option value='1'>1-topping</option>
+                      <option value='2'>2-toppings</option>
+                      <option value='3'>3-topping</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="inputGroupSelect02">Size</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect02">
+                      <option selected>Choose...</option>
+                      <option value='Large'>Large </option>
+                      <option value='Small'>Small</option>
+                    </select>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="inputGroupSelect02">Toppings</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect02">
+                      <option selected>Choose...</option>
+                      {%for  i in Tops%}
+                      <option value={{i}}>{{i}}</option>
+                      {%endfor%}
+                    </select>
+                  </div>
+                </div>
+                <button id="cart" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addToCart">Add to cart</button>
+                      <!-- Modal -->
+                    <div class="modal fade" id="addToCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel  ">Do You Want To add to cart</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            Item chosen is:
+                            {{i}} 
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary"  id="confirm" data-dismiss="modal" value="{{i}}">Confirm</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+    {%endblock content%}
+    
