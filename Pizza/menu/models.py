@@ -11,9 +11,9 @@ TYPES=[
 
 FLAVOURS=[
 ('cheese','cheese'),
-('1','1-topping'),
-('2','2-toppings'),
-('3','3-toppings')
+('1-topping','1-topping'),
+('2-toppings','2-toppings'),
+('3-toppings','3-toppings')
 ]
 SIZES=[
     ('Large','Large'),
@@ -33,5 +33,5 @@ class Pizza(models.Model):
     toppings = models.ManyToManyField(Topping)
     photo=models.ImageField(upload_to='pizzaimage',default='pepi.jpg')
     def __str__(self):
-        return f'{self.type_pizza},{self.flavour} to be topped with {self.toppings}({self.size})'
+        return f'{self.type_pizza},{self.flavour}-({self.size})'
 
